@@ -7,8 +7,30 @@ http://www.queuemetrics.com/
 
 ![alt tag](https://github.com/KevinRavasi/QueueMetricsWallboard/blob/master/ScreenShot.png)
 
-Due to the CORS authorization system, in order to view the wallBoard correctly Chrome
-must be launched with the --disable-web-security option appended.
+Due to the Cross-origin resource sharing (CORS) mechanism, in order to view the wallBoard correctly, 
+corsproxy, or another equivalent CORS proxy, must be installed on your system.
+
+https://www.npmjs.com/package/corsproxy
+
+the best way to insall corsproxy is through npm package manager. 
+If you don't have node.js and npm on your system you should install them from here:
+
+https://nodejs.org/en/download/
+
+After installing npm you are ready to install corsproxy, just open a command prompt and type:
+
+npm install -g corsproxy
+
+When the installation is done, you can run corsproxy, by typing in the same command prompt
+
+corsproxy
+
+this is what it should look like.
+
+
+
+
+
 This can be solved by adding the correct access-control-allow <origin> header in the server configuration.
 
 This wallboard constantly polls QueueMetrics for data using some of the QueueMetrics json calls listed at
