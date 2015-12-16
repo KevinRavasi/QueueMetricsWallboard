@@ -14,6 +14,12 @@ auto-updating and auto-scrolling endlessly.
 QueueMetricsWallboard uses a Browserify created bundle file named "Bundle.js". This bundle is a babelify
 interpretation of Wallboard.js which requires a series of npm modules such as "react", "react-dom", "react-data-components" and "corsproxy".
 
+To use the wallboard go to
+
+https://github.com/KevinRavasi/QueueMetricsWallboard
+
+and press the "Download Zip" button and extract it anywhere.
+
 Due to the Cross-origin resource sharing (CORS) mechanism, in order to view the wallBoard correctly, 
 corsproxy, or another equivalent CORS proxy, must be installed on your system.
 
@@ -38,11 +44,12 @@ this is what it should look like.
 
 Now to setup the wallboard edit the "proxyAddress", "proxyPort", "queuemetricsAddress" and "queuemetricsPort" parameters in the last script tag of the WallBoard.html file.
 
-"<script src="Bundle.js" proxyAddress="127.0.0.1" proxyPort="1337" queuemetricsAddress="10.0.0.122" queuemetricsPort="8080"></script>"
+// <script src="Bundle.js" proxyAddress="127.0.0.1" proxyPort="1337" queuemetricsAddress="10.0.0.122" queuemetricsPort="8080"></script>"
 
 now you can open WallBoard.html and it should work correctly.
 
-Alternatively you can avoid using corsproxy, by opening chrome.exe from the command prompt with the --disable-web-security option
+Alternatively you can avoid using corsproxy, by opening chrome.exe from the command prompt with the 
+--disable-web-security option
 appended. In that case you should change both proxyAddress and proxyPort parameters in WallBoard.html to "-".
 
 EDITING THE SOURCE CODE
