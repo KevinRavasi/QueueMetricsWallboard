@@ -5,7 +5,7 @@ web browser.
 
 http://www.queuemetrics.com/
 
-Check out "ScreenShot.png" in this repository for a hint of QueueMetricsWallboard layout.
+![alt tag](https://github.com/KevinRavasi/QueueMetricsWallboard/blob/master/ScreenShot.png)
 
 Due to the CORS authorization system, in order to view the wallBoard correctly Chrome
 must be launched with the --disable-web-security option appended.
