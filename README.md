@@ -52,6 +52,7 @@ now you can open WallBoard.html and it should work correctly.
 Alternatively you can avoid using corsproxy, by opening chrome.exe from the command prompt with the 
 --disable-web-security option
 appended. In that case you should change both proxyAddress and proxyPort parameters in WallBoard.html to "-".
+this approach is not reccomended and should be used only for development purposes.
 
 EDITING THE SOURCE CODE
 
