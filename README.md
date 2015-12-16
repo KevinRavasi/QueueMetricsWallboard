@@ -42,9 +42,10 @@ this is what it should look like.
 
 ![alt tag](https://github.com/KevinRavasi/QueueMetricsWallboard/blob/master/CorsProxy.png)
 
-Now to setup the wallboard edit the "proxyAddress", "proxyPort", "queuemetricsAddress" and "queuemetricsPort" parameters in the last script tag of the WallBoard.html file.
+Now to setup the wallboard edit the "proxyAddress", "proxyPort", "queuemetricsAddress" and "queuemetricsPort" parameters in the last script tag of the WallBoard.html file, with the correct addresses and ports of your proxy and queuemetrics system.
 
-// <script src="Bundle.js" proxyAddress="127.0.0.1" proxyPort="1337" queuemetricsAddress="10.0.0.122" queuemetricsPort="8080"></script>"
+ example:
+ script src="Bundle.js" proxyAddress="127.0.0.1" proxyPort="1337" queuemetricsAddress="10.0.0.122" queuemetricsPort="8080"
 
 now you can open WallBoard.html and it should work correctly.
 
