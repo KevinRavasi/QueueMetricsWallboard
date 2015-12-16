@@ -1,11 +1,11 @@
-  var ReactDOM = require('react-dom');
+  var ReactDOM = require('react-dom');                //import required npm modules
   var React = require('react');
   var DataTable = require('./DataTable');
 
   var agents = [];
   var calls = [];
 
-  var agentsColumns = [
+  var agentsColumns = [                               //agents table column definition
     { title: 'Agent', prop: 'agent'  },
     { title: 'Last Logon', prop: 'lastLogon' },
     { title: 'Queues', prop: 'queues' },
@@ -14,7 +14,7 @@
   ];
 
 
-  var callsColumns = [
+  var callsColumns = [                                //calls table column definition
     { title: 'Queue', prop: 'queue'  },
     { title: 'CallID', prop: 'callId' },
     { title: 'Agent', prop: 'agent' },
@@ -26,18 +26,20 @@
   ];
 
   
-  var proxyAddress = getParameter("proxyAddress");
+  var proxyAddress = getParameter("proxyAddress");                  //get parameters from WallBoard.html
   var proxyPort = getParameter("proxyPort");
   var queuemetricsAddress = getParameter("queuemetricsAddress");
   var queuemetricsPort = getParameter("queuemetricsPort");
-  var xmlhttp = new XMLHttpRequest();
 
-  if((proxyAddress=="-")||(proxyPort=="-"))
+  var xmlhttp = new XMLHttpRequest();                               //create a new XMLHttpRequest
+
+  if((proxyAddress=="-")||(proxyPort=="-"))                         //check if proxy server is used
   {
 
     var url = encodeURI("http://"+queuemetricsAddress+":"+queuemetricsPort+"/queuemetrics/QmRealtime/jsonStatsApi.do?queues=*&block=RealtimeDO.RtCallsRaw&block=RealtimeDO.RTAgentsLoggedIn");
 
   }
+
   else{
     
     var url = encodeURI("http://"+proxyAddress+":"+proxyPort+"/"+queuemetricsAddress+":"+queuemetricsPort+"/queuemetrics/QmRealtime/jsonStatsApi.do?queues=*&block=RealtimeDO.RtCallsRaw&block=RealtimeDO.RTAgentsLoggedIn");
@@ -46,28 +48,28 @@
 
     
 
-  xmlhttp.onreadystatechange = function() {
+  xmlhttp.onreadystatechange = function() {                         //if request is answered deploy retrieveData function
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-          var myArr = JSON.parse(xmlhttp.responseText);
-          myFunction(myArr);
+          var response = JSON.parse(xmlhttp.responseText);
+          myFunction(response);
       }
   };
   
   
 
-  sendRequest(xmlhttp);
-  poll(xmlhttp);
+  sendRequest(xmlhttp);  //send the first request
+  poll(xmlhttp);         //start polling queuemetrics
      
   
-  function myFunction(arr) {
+  function retrieveData(response) {    //organizes the data retrieved from queuemetrics in two different arrays
                 
-      agents = agentCast(arr["RealtimeDO"+String.fromCharCode(46)+"RTAgentsLoggedIn"]);
-      calls = callCast(arr["RealtimeDO"+String.fromCharCode(46)+"RtCallsRaw"]);
+      agents = agentCast(response["RealtimeDO"+String.fromCharCode(46)+"RTAgentsLoggedIn"]);
+      calls = callCast(response["RealtimeDO"+String.fromCharCode(46)+"RtCallsRaw"]);
    
   }
 
 
-  function universalTimeCast(obj){
+  function universalTimeCast(obj){   //universal time cast, no GMT, mainly used for subtraction between timestamps
   
       var date = new Date(obj*1000);
       
@@ -82,7 +84,7 @@
   }
 
 
-  function timeCast(obj){
+  function timeCast(obj){    //converts timestamps to normal time
   
       var date = new Date(obj*1000);
       
@@ -97,11 +99,12 @@
   }
   
 
-  function poll() {
+  function poll() {     // polls the queuemetrics server
       
-    setTimeout(function(){sendRequest(xmlhttp);poll();console.log("poll");},3000);
+    setTimeout(function(){sendRequest(xmlhttp);poll();console.log("poll");},3000);   // this function recursevly calls itself ever 3 seconds, while rendering
+                                                                                     // the table components
     
-    ReactDOM.render(
+    ReactDOM.render(  //renders the agents table
       <DataTable
         className="agentsContainer"
         keys={[ 'agent','queue' ]}
@@ -115,7 +118,7 @@
     document.getElementById("agents"));
     
 
-    ReactDOM.render(
+    ReactDOM.render(     //renders the calls table
       <DataTable
         className="callsContainer"
         keys={[ 'callId' ]}
@@ -132,10 +135,7 @@
   
 
  
-  
-
-
-  function sendRequest(xmlhttp){
+  function sendRequest(xmlhttp){  //sends the XMLHttp Request
     
     xmlhttp.open("GET", url, true,"robot","robot");
     xmlhttp.setRequestHeader("Authorization", "basic " + btoa("robot:robot"));
@@ -144,7 +144,7 @@
   
   }
 
-  function cleanArray(arr){
+  function cleanArray(arr){     //cleans the results from garbage characters
     
     for(var j=1;j<arr.length;j++){
      
@@ -163,7 +163,7 @@
   }
 
 
-  function agentCast(arr){
+  function agentCast(arr){    // organizes the agents data extracting the right fields from the JSON response
       
     var obj = []; 
     arr = cleanArray(arr); 
@@ -187,7 +187,7 @@
   }
 
 
-  function callCast(arr){
+  function callCast(arr){      // organizes the calls data extracting the right fields from the JSON response
       
     var obj = []; 
     arr = cleanArray(arr); 
@@ -196,8 +196,8 @@
       
       if(arr[i][3]!= 0){
       
-        var answerDelayVar = universalTimeCast(arr[i][3] - arr[i][2]);
-        var conversationTimeVar = universalTimeCast((Date.now()/1000)-arr[i][3]);
+        var answerDelayVar = universalTimeCast(arr[i][3] - arr[i][2]);       //calculates answer delay
+        var conversationTimeVar = universalTimeCast((Date.now()/1000)-arr[i][3]);         //calculates conversation time
       
       }
       
@@ -228,7 +228,7 @@
   }
 
 
-  function getParameter(attribute){
+  function getParameter(attribute){           //retrieves the parameters set in WallBoard.html
   
     var scripts = document.getElementsByTagName('script');
     var lastScript = scripts[scripts.length-1];
