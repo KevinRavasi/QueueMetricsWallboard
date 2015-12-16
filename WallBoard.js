@@ -31,7 +31,18 @@
   var queuemetricsAddress = getParameter("queuemetricsAddress");
   var queuemetricsPort = getParameter("queuemetricsPort");
   var xmlhttp = new XMLHttpRequest();
-  var url = encodeURI("http://"+proxyAddress+":"+proxyPort+"/"+queuemetricsAddress+":"+queuemetricsPort+"/queuemetrics/QmRealtime/jsonStatsApi.do?queues=*&block=RealtimeDO.RtCallsRaw&block=RealtimeDO.RTAgentsLoggedIn");
+
+  if((proxyAddress=="-")||(proxyPort=="-"))
+  {
+
+    var url = encodeURI("http://"+queuemetricsAddress+":"+queuemetricsPort+"/queuemetrics/QmRealtime/jsonStatsApi.do?queues=*&block=RealtimeDO.RtCallsRaw&block=RealtimeDO.RTAgentsLoggedIn");
+
+  }
+  else{
+    
+    var url = encodeURI("http://"+proxyAddress+":"+proxyPort+"/"+queuemetricsAddress+":"+queuemetricsPort+"/queuemetrics/QmRealtime/jsonStatsApi.do?queues=*&block=RealtimeDO.RtCallsRaw&block=RealtimeDO.RTAgentsLoggedIn");
+
+  }
 
     
 
@@ -88,7 +99,7 @@
 
   function poll() {
       
-    setTimeout(function(){sendRequest(xmlhttp);poll();console.log("poll");},5000);
+    setTimeout(function(){sendRequest(xmlhttp);poll();console.log("poll");},3000);
     
     ReactDOM.render(
       <DataTable
