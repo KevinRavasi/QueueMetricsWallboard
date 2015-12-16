@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>QueueMetrics Wallboard</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/table-th.css">
+
+  </head>
+  <script>
+  (
+  function() {
+  
+     'use strict';
+      var dbh,sto,num=1,temp=0,scrolldelay=30;
+  
+  function init(){ 
+      dbh=document.body.offsetHeight;
+      pageScroll();
+   }
+  
+  function pageScroll() {
+      window.scrollBy(0,num);
+      temp+=num;
+  	  if((temp>=dbh)||(temp<=0)){
+      		num=-num;
+   	  }
+      
+	  sto=setTimeout(function(){pageScroll();},scrolldelay);
+  }
+  
+     window.addEventListener?
+     window.addEventListener('load',init,false):
+     window.attachEvent('onload',init);
+  
+  })();
+  </script>
+  
+  <body>
+    <div id="agents"></div>
+    <div id="calls"></div>
+	<script src="Bundle.js" proxyAddress="127.0.0.1" proxyPort="1337" queuemetricsAddress="10.0.0.122" queuemetricsPort="8080"></script>
+  </body>
+</html>
