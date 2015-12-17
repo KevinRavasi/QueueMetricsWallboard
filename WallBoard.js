@@ -51,7 +51,7 @@
   xmlhttp.onreadystatechange = function() {                         //if request is answered deploy retrieveData function
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
           var response = JSON.parse(xmlhttp.responseText);
-          myFunction(response);
+          retrieveData(response);
       }
   };
   
@@ -150,9 +150,9 @@
      
       for(var i=0;i<arr.length;i++){
       
-        if ( arr[i][j].toString().indexOf("&")>-1){
-            arr[i][j] = "-";
-        }
+        var a=arr[i][j];
+        a = a.replace(/&nbsp;/g,"-");
+        arr[i][j] = a;
 
       }
     
