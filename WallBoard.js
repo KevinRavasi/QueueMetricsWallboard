@@ -50,11 +50,13 @@
 
   xmlhttp.onreadystatechange = function() {                         //if request is answered deploy retrieveData function
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-          var response = JSON.parse(xmlhttp.responseText);
+          var response = xmlhttp.responseText;
+          response = clean(response);
+          var response = JSON.parse(response);
           retrieveData(response);
       }
   };
-  
+   
   
 
   sendRequest(xmlhttp);  //send the first request
@@ -144,21 +146,12 @@
   
   }
 
-  function cleanArray(arr){     //cleans the results from garbage characters
-    
-    for(var j=1;j<arr.length;j++){
-     
-      for(var i=0;i<arr.length;i++){
-      
-        var a=arr[i][j];
-        a = a.replace(/&nbsp;/g,"-");
-        arr[i][j] = a;
 
-      }
-    
-    }
-    
-    return arr;
+  function clean(response){     //cleans the results from garbage characters
+          
+        response = response.replace(/&nbsp;/g,"-");
+        
+    return response;
   
   }
 
@@ -166,8 +159,7 @@
   function agentCast(arr){    // organizes the agents data extracting the right fields from the JSON response
       
     var obj = []; 
-    arr = cleanArray(arr); 
-   
+
     for(var i = 1; i < arr.length;i++){ 
    
       obj.push({
@@ -190,7 +182,6 @@
   function callCast(arr){      // organizes the calls data extracting the right fields from the JSON response
       
     var obj = []; 
-    arr = cleanArray(arr); 
     
     for(var i = 1; i < arr.length;i++){ 
       
