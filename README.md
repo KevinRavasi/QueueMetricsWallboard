@@ -42,10 +42,13 @@ this is what it should look like.
 
 ![alt tag](https://github.com/KevinRavasi/QueueMetricsWallboard/blob/master/CorsProxy.png)
 
-Now to setup the wallboard edit the "proxyAddress", "proxyPort", "queuemetricsAddress" and "queuemetricsPort" parameters in the last script tag of the WallBoard.html file, with the correct addresses and ports of your proxy and queuemetrics system.
+Now to setup the wallboard edit the "proxyAddress", "proxyPort", "queuemetricsAddress", "queuemetricsPort", "username", "password" and "queues" parameters in the last script tag of the WallBoard.html file, with the correct addresses and ports of your proxy and queuemetrics system, together with the correct username and password for the robot user and the list of queues you want to monitor.
+
+the correct format for the queues string is the following: "300|301|302" (if you want to monitor queue 300, 301 and 302 for example). To monitor all queues just type "*".
 
  example:
- script src="Bundle.js" proxyAddress="127.0.0.1" proxyPort="1337" queuemetricsAddress="10.0.0.122" queuemetricsPort="8080"
+ script src="Bundle.js" proxyAddress="127.0.0.1" proxyPort="1337" queuemetricsAddress="192.168.1.15" queuemetricsPort="8080"
+	username="robot" password = "robot" queues = "300|301|302"
 
 now you can open WallBoard.html and it should work correctly.
 
@@ -72,9 +75,11 @@ procedure:
   
     npm install -g browserify
 
-    npm install react react-dom babelify babel-preset-es2015 babel-preset-react react-data-components
+    npm install react-datagrid --save
 
-- modify WallBoard.js or DataTable.js to your liking.
+    npm install react react-dom babelify babel-preset-es2015 babel-preset-react 
+
+- modify WallBoard.js to your liking.
 
 - update the bundle file with the following command:
 
@@ -92,5 +97,5 @@ this project utilizes the following third party stylesheets for data table forma
 
 and the following third party React component library:
   
-  https://github.com/carlosrocha/react-data-components
+  https://github.com/zippyui/react-datagrid
   
