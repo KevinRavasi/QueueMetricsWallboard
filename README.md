@@ -12,7 +12,7 @@ http://manuals.loway.ch/QM_JSON_manual-chunked/ch02.html
 auto-updating and auto-scrolling endlessly.
 
 QueueMetricsWallboard uses a Browserify created bundle file named "Bundle.js". This bundle is a babelify
-interpretation of Wallboard.js which requires a series of npm modules such as "react", "react-dom", "react-data-components" and "corsproxy".
+interpretation of Wallboard.js which requires a series of npm modules such as "react", "react-dom", "react-datagrid" and "corsproxy".
 
 To use the wallboard go to
 
